@@ -11,3 +11,8 @@ python setup.py install
 ````
 
 Make sure you are using python3
+
+## How to use it
+````
+tulip <path-to-image-file>
+````
