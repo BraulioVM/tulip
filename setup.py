@@ -16,5 +16,8 @@ setup(
         'console_scripts': [
             'tulip=tulip:tulip'
         ]
-    }
+    },
+    classifiers=[
+            'Programming Language :: Python :: 3',
+    ]
 )

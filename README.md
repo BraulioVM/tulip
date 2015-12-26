@@ -9,3 +9,5 @@ Clone the repository and execute
 ````
 python setup.py install
 ````
+
+Make sure you are using python3
