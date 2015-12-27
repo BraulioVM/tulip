@@ -1,4 +1,5 @@
 from tulip.grid import BinaryGrid
+from PIL import Image
 from itertools import product
 import os, sys
 
@@ -10,10 +11,10 @@ def tulip():
     if len(sys.argv) != 2:
         print("Error: tulip needs one argument", file=sys.stderr)
     else:
-        image_path = sys.argv[1]
+        image = Image.open(sys.argv[1])
         height, width = get_terminal_size()
 
-        binary_grid = BinaryGrid(image_path, width, height)
+        binary_grid = BinaryGrid(image, width, height)
 
         for j in range(height):
             for i in range(width):
