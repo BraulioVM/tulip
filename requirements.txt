@@ -1,2 +1,3 @@
 Pillow==3.0.0
-tulip==0.1
+pytest==2.8.5
+
