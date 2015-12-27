@@ -11,7 +11,11 @@ def color_sum(color1, color2):
 def divide(color, n):
     return (color[0] // n, color[1] // n, color[2] // n)
 
-def get_average_color(image, x, y, width, height):
+def get_average_color(image, x=0, y=0, width=None, height=None):
+    
+    width = width if width is not None else image.size[0] - x
+    height = height if height is not None else image.size[1] - y
+
     coordinates = product(range(x, x + width), range(y, y + height))
     colors = ( image.getpixel(coordinate) for coordinate in coordinates )
 
@@ -66,8 +70,8 @@ class BinaryGrid(Grid):
 
         return norm(color) > self.threshold
 
-       
+
     def get_average_norm(self):
-        average_color = get_average_color(self.image, 0, 0, self.image.width, self.image.height)
+        average_color = get_average_color(self.image)
         return norm(average_color)
        
