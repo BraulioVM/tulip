@@ -5,16 +5,17 @@ from tulip.util import norm, get_average_color
 
 class Grid(object):
     def __init__(self, image_path, width, height):
-        self.image = Image.open(image_path).convert('RGB')
-        real_width, real_height = self.image.size
-        
-        self.width = width
+        self.width = width  # width * height = number of buckets
         self.height = height
 
-        self.bucket_width = real_width // width + 1 
-        self.bucket_height = real_height // height + 1
+        image = Image.open(image_path).convert('RGB')
+        image_width, image_height = image.size
+        
+        self.bucket_width = image_width // width
+        self.bucket_height = image_height // height
 
-        self.image = self.image.resize((width * self.bucket_width, height * self.bucket_height))
+        # make the buckets fit
+        self.image = image.resize((width * self.bucket_width, height * self.bucket_height))
 
         self.buckets = {}
 
@@ -40,7 +41,7 @@ class BinaryGrid(Grid):
     def __init__(self, image_path, width, height):
        super(BinaryGrid, self).__init__(image_path, width, height)
 
-       self.threshold = self.get_average_norm()
+       self.threshold = self.get_average_color_norm()
 
     def __getitem__(self, coordinates):
         color = super(BinaryGrid, self).__getitem__(coordinates)
@@ -48,7 +49,7 @@ class BinaryGrid(Grid):
         return norm(color) > self.threshold
 
 
-    def get_average_norm(self):
+    def get_average_color_norm(self):
         average_color = get_average_color(self.image)
         return norm(average_color)
        
