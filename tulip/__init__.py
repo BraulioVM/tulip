@@ -2,8 +2,6 @@ from tulip.grid import BinaryGrid
 from itertools import product
 import os, sys
 
-def coordinates(width, height):
-    return product(range(width), range(height))
 
 def get_terminal_size():
     return map(int, os.popen('stty size', 'r').read().split())
