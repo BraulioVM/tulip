@@ -1,5 +1,5 @@
-from tulip.grid import color_sum, get_average_color
-from tulip.util import coordinates
+from tulip.util import color_sum, get_average_color, norm, coordinates
+
 from functools import reduce
 from PIL import Image
 
@@ -39,3 +39,7 @@ def test_gradient_get_average_color():
 
    assert get_average_color(image, x=8, y=8) == (8, 17, 0)
 
+
+def test_norm():
+   assert norm((0, 0, 0)) == 0
+   assert norm((10, 20, 5)) == 100 + 400 + 25
