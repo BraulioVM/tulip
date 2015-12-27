@@ -11,10 +11,10 @@ def tulip():
     if len(sys.argv) != 2:
         print("Error: tulip needs one argument", file=sys.stderr)
     else:
-        image = Image.open(sys.argv[1])
+        image_path = sys.argv[1]
         height, width = get_terminal_size()
 
-        binary_grid = BinaryGrid(image, width, height)
+        binary_grid = BinaryGrid.from_file(image_path, width, height)
 
         for j in range(height):
             for i in range(width):

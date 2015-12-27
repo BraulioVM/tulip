@@ -19,6 +19,11 @@ class Grid(object):
 
         self.buckets = {}
 
+    @classmethod
+    def from_file(cls, image_path, width, height):
+        image = Image.open(image_path)
+        return cls(image, width, height)
+
     def __getitem__(self, coordinates):
         i, j = coordinates
         width, height = self.width, self.height
