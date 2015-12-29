@@ -18,7 +18,18 @@ Make sure you are using python3
 Usage: tulip [OPTIONS] IMAGE_PATH
 
 Options:
-  --width INTEGER   Width (in characters) of the image shell representation
-  --height INTEGER  Height (in characters) of the image shell representation
-  --help            Show this message and exit.
+  --width INTEGER                 Width (in characters) of the image shell
+                                  representation (defaults to the current
+                                  shell width)
+  -wp, --width-percentage FLOAT   Percentage of the shell width that will be
+                                  used to display the image (will be ignored
+                                  if --width is specified)
+  --height INTEGER                Height (in characters) of the image shell
+                                  representation (defaults to the current
+                                  shell height)
+  -hp, --height-percentage FLOAT  Percentage of the shell height that will be
+                                  used to display the image (will be ignored
+                                  if --height is specified)
+  --help                          Show this message and exit.
+
 ````
