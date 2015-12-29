@@ -10,7 +10,8 @@ setup(
     author_email='yosoy@braulio.me',
     packages=['tulip'], 
     install_requires=[
-        'Pillow>=3.0.0'
+        'Pillow>=3.0.0',
+        'click>=6.2'
     ],
     entry_points={
         'console_scripts': [
