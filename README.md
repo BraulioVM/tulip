@@ -33,3 +33,6 @@ Options:
   --help                          Show this message and exit.
 
 ````
+
+## Troubleshooting
+Submit an issue if something is not working as you expect. I will happily solve the problem as soon as I can :muscle:
