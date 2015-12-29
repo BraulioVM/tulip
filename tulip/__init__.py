@@ -34,5 +34,5 @@ def tulip(width, height, image_path):
             else:
                 print("#", end="")
 
-
+        print('') # \n
 
