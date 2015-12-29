@@ -18,12 +18,36 @@ def get_terminal_height():
     return height
 
 @click.command()
-@click.option('--width', default=None, help='Width (in characters) of the image shell representation', type=int)
-@click.option('--height', default=None, help='Height (in characters) of the image shell representation', type=int)
+@click.option(
+    '--width', 
+    default=None, 
+    help='Width (in characters) of the image shell representation (defaults to the current shell width)', 
+    type=int
+)
+@click.option(
+    '--width-percentage', 
+    '-wp', 
+    default=100, 
+    help='Percentage of the shell width that will be used to display the image (will be ignored if --width is specified)',
+    type=float
+)
+@click.option(
+    '--height', 
+    default=None,
+    help='Height (in characters) of the image shell representation (defaults to the current shell height)',
+    type=int
+)
+@click.option(
+    '--height-percentage',
+    '-hp',
+    default=100,
+    help='Percentage of the shell height that will be used to display the image (will be ignored if --height is specified)',
+    type=float
+)
 @click.argument('image_path', type=click.Path(exists=True))
-def tulip(width, height, image_path):
-    width = width or get_terminal_width()
-    height = height or get_terminal_height()
+def tulip(width, width_percentage, height, height_percentage, image_path):
+    width = width or int(get_terminal_width() * float(width_percentage) / 100)
+    height = height or int(get_terminal_height() * float(height_percentage) / 100)
 
     binary_grid = BinaryGrid.from_file(image_path, width, height)
 
