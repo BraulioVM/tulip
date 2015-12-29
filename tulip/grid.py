@@ -49,7 +49,7 @@ class BinaryGrid(Grid):
        self.threshold = self.get_average_color_norm()
 
     def __getitem__(self, coordinates):
-        color = super(BinaryGrid, self)[coordinates]
+        color = super(BinaryGrid, self).__getitem__(coordinates)
 
         return norm(color) > self.threshold
 
