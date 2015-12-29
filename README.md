@@ -15,5 +15,10 @@ Make sure you are using python3
 
 ## How to use it
 ````
-tulip <path-to-image-file>
+Usage: tulip [OPTIONS] IMAGE_PATH
+
+Options:
+  --width INTEGER   Width (in characters) of the image shell representation
+  --height INTEGER  Height (in characters) of the image shell representation
+  --help            Show this message and exit.
 ````

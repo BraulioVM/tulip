@@ -18,8 +18,8 @@ def get_terminal_height():
     return height
 
 @click.command()
-@click.option('--width', default=None, help='Width (in characters) of the image', type=int)
-@click.option('--height', default=None, help='Height (in characters) of the image to represent', type=int)
+@click.option('--width', default=None, help='Width (in characters) of the image shell representation', type=int)
+@click.option('--height', default=None, help='Height (in characters) of the image shell representation', type=int)
 @click.argument('image_path', type=click.Path(exists=True))
 def tulip(width, height, image_path):
     width = width or get_terminal_width()
