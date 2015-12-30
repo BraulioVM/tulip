@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/BraulioVM/tulip.svg)](https://travis-ci.org/BraulioVM/tulip)
 > Display simple images in your terminal
 
-![tulip-capture](https://cloud.githubusercontent.com/assets/715372/12007314/d1429196-abfe-11e5-88fa-e0c3a60bb639.png)
+![tulip-capture](https://cloud.githubusercontent.com/assets/715372/12051538/97241142-af05-11e5-8285-0d18eeded333.png)
 
 ## Installation
 Clone the repository and execute 
@@ -30,6 +30,7 @@ Options:
   -hp, --height-percentage FLOAT  Percentage of the shell height that will be
                                   used to display the image (will be ignored
                                   if --height is specified)
+  --just-ascii                    Display image using just ascii characters
   --help                          Show this message and exit.
 
 ````
