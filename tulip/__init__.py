@@ -1,4 +1,4 @@
-from tulip.grid import BinaryGrid
+from tulip.grid import BrailleGrid, BinaryGrid
 from PIL import Image
 from itertools import product
 import os
@@ -44,19 +44,40 @@ def get_terminal_height():
     help='Percentage of the shell height that will be used to display the image (will be ignored if --height is specified)',
     type=float
 )
+@click.option(
+    '--just-ascii',
+    default=False,
+    help='Display image using just ascii characters',
+    is_flag=True
+)
 @click.argument('image_path', type=click.Path(exists=True))
-def tulip(width, width_percentage, height, height_percentage, image_path):
+def tulip(width, width_percentage, height, height_percentage, just_ascii, image_path):
     width = width or int(get_terminal_width() * float(width_percentage) / 100)
     height = height or int(get_terminal_height() * float(height_percentage) / 100)
 
+    if just_ascii:
+        display_ascii_image(image_path, width, height)
+    
+    else:
+        display_braille_image(image_path, width, height)
+
+
+def display_ascii_image(image_path, width, height):
     binary_grid = BinaryGrid.from_file(image_path, width, height)
 
     for j in range(height):
         for i in range(width):
             if binary_grid[i, j]:
-                print(" ", end="")
+                print(' ', end='')
             else:
-                print("#", end="")
-
+                print('#', end='')
         print('') # \n
 
+def display_braille_image(image_path, width, height):
+    grid = BrailleGrid.from_file(image_path, width, height)
+    
+    for j in range(height):
+        for i in range(width):
+            print(grid[i, j], end='')
+        
+        print('') # \n
