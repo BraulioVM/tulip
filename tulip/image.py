@@ -4,8 +4,13 @@ from PIL import Image
 
 class TextImage(object):
     UnderlyingGrid = Grid
-    def __init__(self, image, width, height):
-        self.grid = self.UnderlyingGrid(image, width, height)
+    def __init__(self, image, width, height, grid_width=None, grid_height=None):
+        grid_width = grid_width or width
+        grid_height = grid_height or height
+
+        self.width = width
+        self.height = height
+        self.grid = self.UnderlyingGrid(image, grid_width, grid_height)
 
     @classmethod
     def from_file(Klass, image_path, width, height):
@@ -18,9 +23,9 @@ class TextImage(object):
         return self.grid[coordinates]
 
     def show(self):
-        width = self.grid.width
-        height = self.grid.height
-        
+        width = self.width
+        height = self.height
+
         for j in range(height):
             for i in range(width):
                 print(self.get_pixel((i, j)), end='')
@@ -42,10 +47,9 @@ class BrailleImage(TextImage):
     UnderlyingGrid = BinaryGrid
     
     def __init__(self, image, width, height):
-        super(BrailleImage, self).__init__(image, width * 2, height * 4)
+        super(BrailleImage, self).__init__(image, width, height, grid_width=width * 2, grid_height=height * 4)
 
     def get_pixel(self, coordinates):
-        print(coordinates)
         i, j = coordinates
         
         back_i = 2*i
@@ -55,7 +59,7 @@ class BrailleImage(TextImage):
 
         for j in range(back_j, back_j + 4):
             braille_grid.append(
-                (self.grid[back_i, j], self.grid[back_i + 1, j])
+                (not self.grid[back_i, j], not self.grid[back_i + 1, j])
             )
         
         return get_braille_character(braille_grid)
