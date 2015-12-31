@@ -1,8 +1,5 @@
-from tulip.grid import BrailleGrid, BinaryGrid
-from PIL import Image
-from itertools import product
+from tulip.image import BinaryImage, BrailleImage
 import os
-import sys
 import click
 
 
@@ -56,28 +53,11 @@ def tulip(width, width_percentage, height, height_percentage, just_ascii, image_
     height = height or int(get_terminal_height() * float(height_percentage) / 100)
 
     if just_ascii:
-        display_ascii_image(image_path, width, height)
+        image = BinaryImage.from_file(image_path, width, height)
     
     else:
-        display_braille_image(image_path, width, height)
-
-
-def display_ascii_image(image_path, width, height):
-    binary_grid = BinaryGrid.from_file(image_path, width, height)
-
-    for j in range(height):
-        for i in range(width):
-            if binary_grid[i, j]:
-                print(' ', end='')
-            else:
-                print('#', end='')
-        print('') # \n
-
-def display_braille_image(image_path, width, height):
-    grid = BrailleGrid.from_file(image_path, width, height)
+        image = BrailleImage.from_file(image_path, width, height)
     
-    for j in range(height):
-        for i in range(width):
-            print(grid[i, j], end='')
-        
-        print('') # \n
+    image.show()
+
+

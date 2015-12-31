@@ -1,8 +1,5 @@
 from PIL import Image
-from itertools import product
-from functools import reduce
 from tulip.util import norm, get_average_color
-from tulip.braille import get_braille_character
 
 class Grid(object):
     def __init__(self, image, width, height):
@@ -19,11 +16,6 @@ class Grid(object):
         self.image = image.resize((width * self.bucket_width, height * self.bucket_height))
 
         self.buckets = {}
-
-    @classmethod
-    def from_file(cls, image_path, width, height):
-        image = Image.open(image_path)
-        return cls(image, width, height)
 
     def __getitem__(self, coordinates):
         i, j = coordinates
@@ -61,21 +53,3 @@ class BinaryGrid(Grid):
        
 
 
-class BrailleGrid(BinaryGrid):
-    def __init__(self, image, width, height):
-        super(BrailleGrid, self).__init__(image, width * 2, height * 4)
-    
-    def __getitem__(self, coordinates):
-        i, j = coordinates
-        
-        real_i = 2*i
-        real_j = 4*j
-        
-        # if we invert colors, it looks better in my shell
-        get_pixel = lambda i, j: not super(BrailleGrid, self).__getitem__((i, j))
-        
-        pixel_grid = [ 
-            (get_pixel(real_i, j), get_pixel(real_i + 1, j)) for j in range(real_j, real_j + 4) 
-        ]
-
-        return get_braille_character(pixel_grid)
