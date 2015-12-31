@@ -8,10 +8,8 @@
 Clone the repository and execute 
 
 ````
-python setup.py install
+python3 setup.py install
 ````
-
-Make sure you are using python3
 
 ## How to use it
 ````
