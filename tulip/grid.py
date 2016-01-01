@@ -1,5 +1,6 @@
 from PIL import Image
 from tulip.util import norm, get_average_color
+from functools import lru_cache
 
 class Grid(object):
     def __init__(self, image, width, height):
@@ -15,8 +16,7 @@ class Grid(object):
         # make the buckets fit
         self.image = image.resize((width * self.bucket_width, height * self.bucket_height))
 
-        self.buckets = {}
-
+    @lru_cache(maxsize=None)
     def __getitem__(self, coordinates):
         i, j = coordinates
         width, height = self.width, self.height
@@ -24,14 +24,10 @@ class Grid(object):
         if i > width or j > height:
             raise(IndexError())
 
-        if (i, j) in self.buckets: # memoize
-            return self.buckets[i, j]
-
         real_i = i * self.bucket_width
         real_j = j * self.bucket_height
 
         result = get_average_color(self.image, real_i, real_j, self.bucket_width, self.bucket_height)
-        self.buckets[i, j] = result
 
         return result
                  
